@@ -1,0 +1,13 @@
+{
+  "version": "graph-rules-v1",
+  "window_steps": 168,
+  "snapshot_stride": 24,
+  "minimum_pair_events": 2,
+  "minimum_members": 5,
+  "maximum_members": 12,
+  "minimum_score": 0.55,
+  "alerts_per_snapshot": 3,
+  "duplicate_jaccard": 0.8,
+  "match_member_precision": 0.8,
+  "match_member_recall": 0.8
+}

@@ -1,0 +1,12 @@
+{
+  "version": "final-evaluation-v1",
+  "paysim_source": "paysim-v2",
+  "transaction_models": "baselines-v1",
+  "synthetic_source": "coordinated-v1",
+  "serving_bundle": "serving-v1",
+  "ring_models": ["activity_lgb", "graph_lgb", "node2vec_lgb", "mlp", "graphsage", "graph_only", "graph_device"],
+  "ring_policies": ["tuned_threshold", "budget_only"],
+  "ring_splits": ["test_known", "test_unseen"],
+  "bootstrap_world_repeats": 2000,
+  "bootstrap_seed": 42
+}

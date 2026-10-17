@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graphshield-ai"
+version = "0.7.0"
+description = "Historical transaction and graph investigation research prototype"
+requires-python = ">=3.11,<3.14"
+dependencies = ["duckdb>=1.2,<2", "numpy>=1.26,<3", "scikit-learn>=1.5,<2", "lightgbm>=4.7,<5", "joblib>=1.4,<2", "torch>=2.6,<3", "fastapi>=0.115,<1", "uvicorn>=0.30,<1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1"]
+
+[project.scripts]
+graphshield = "graphshield.cli:main"
+graphshield-serve = "graphshield.launch:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+graphshield = ["web/*.html", "web/*.css", "web/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+cache_dir = ".cache/pytest"

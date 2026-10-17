@@ -1,0 +1,24 @@
+{
+  "generator_version": "coordinated-v1",
+  "steps": 720,
+  "warmup_steps": 96,
+  "accounts_per_world": 1500,
+  "background_transactions_per_world": 25000,
+  "fraud_groups_per_world": 12,
+  "benign_groups_per_world": 18,
+  "group_size_min": 5,
+  "group_size_max": 9,
+  "episodes_min": 4,
+  "episodes_max": 8,
+  "device_observation_probability": 0.7,
+  "max_device_delay_steps": 4,
+  "shared_group_device_probability": 0.65,
+  "known_families": ["cycle", "fan_in", "fan_out"],
+  "heldout_families": ["relay_chain"],
+  "world_seeds": {
+    "train": [1101, 1102, 1103],
+    "validation": [2201, 2202],
+    "test_known": [3301, 3302],
+    "test_unseen": [4401, 4402]
+  }
+}

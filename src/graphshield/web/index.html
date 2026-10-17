@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GraphShield AI · Investigations</title>
+  <meta name="description" content="Local investigation workspace for GraphShield's synthetic coordinated-activity benchmark.">
+  <link rel="stylesheet" href="/assets/app.css"><script defer src="/assets/app.js"></script>
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="GraphShield home"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M16 2 29 7v10c0 8-8 14-13 17C11 31 3 25 3 17V7Z"/><path d="m9 13 7 10 7-10M9 13h14"/><circle cx="9" cy="13" r="2"/><circle cx="23" cy="13" r="2"/><circle cx="16" cy="23" r="2"/></svg><span>GraphShield <small>AI INVESTIGATIONS</small></span></a>
+  <div class="nav-label">WORKSPACE</div>
+  <a class="nav-item active" href="#workspace" aria-current="page"><span aria-hidden="true">◈</span> Investigation queue</a>
+  <a class="nav-item" href="#run-panel"><span aria-hidden="true">↻</span> Batch replay</a>
+  <div class="sidebar-note"><span class="dot"></span> LOCAL RESEARCH BUILD<p>Synthetic networks.<br>Human review required.</p></div>
+  <div class="sidebar-footer">GraphShield AI <span>Phase 07</span></div>
+</aside>
+<main id="workspace">
+  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> Investigations</div><div class="local-status"><span class="dot"></span><span id="connection">Connecting…</span></div></header>
+  <div class="page">
+    <div class="page-heading"><div><div class="eyebrow">CONNECTED ACTIVITY, IN CONTEXT</div><h1>Investigation queue</h1><p>Review recurring transfer patterns and the evidence behind each case.</p></div><span class="tag">Synthetic data · Experimental</span></div>
+    <div class="scope-panel" id="run-panel">
+      <div class="scope-fields">
+        <label>Network<select id="world" aria-label="Network"></select></label>
+        <label>Scoring model<select id="model" aria-label="Scoring model"></select></label>
+        <label>Review policy<select id="policy" aria-label="Review policy"><option value="tuned_threshold">Tuned review threshold</option><option value="budget_only">Budget only</option></select></label>
+      </div>
+      <button id="replay" class="primary" disabled>Run batch replay <span aria-hidden="true">↗</span></button>
+      <div class="scope-foot"><span id="selection-note">Loading the model registry…</span><span id="run-status" role="status"></span></div>
+    </div>
+    <div id="error" class="error" role="alert" hidden></div>
+    <div class="metrics" aria-label="Queue summary">
+      <article><span>Cases in this view</span><strong id="metric-cases">—</strong><small>Saved investigation candidates</small></article>
+      <article><span>Awaiting review</span><strong id="metric-new">—</strong><small>New cases in the queue</small></article>
+      <article><span>Accounts involved</span><strong id="metric-accounts">—</strong><small>Distinct accounts in these cases</small></article>
+      <article><span>Closed after review</span><strong id="metric-closed">—</strong><small>Reviewer decisions, not model labels</small></article>
+    </div>
+    <div class="investigation-layout">
+      <section class="panel queue-panel" aria-label="Case queue">
+        <div class="panel-heading"><h2>Cases to investigate</h2><span class="count" id="queue-count">0</span></div>
+        <div class="queue-filter"><label class="sr-only" for="status-filter">Filter case status</label><select id="status-filter"><option value="all">All statuses</option><option value="new">New</option><option value="in_review">In review</option><option value="escalated">Escalated</option><option value="closed">Closed</option></select><span>Highest priority first</span></div>
+        <div id="queue" class="queue" aria-live="polite"><div class="empty">Loading the investigation queue…</div></div>
+        <div class="panel-footer">Priority scores guide review. They are not fraud probabilities.</div>
+      </section>
+      <section class="panel detail-panel" aria-label="Case investigation">
+        <div id="detail-empty" class="empty large">Select a case to inspect its connections and historical evidence.</div>
+        <div id="detail" hidden>
+          <div class="case-heading"><div><div class="eyebrow">CASE FILE</div><h2 id="case-title"></h2><div class="case-subline" id="case-subline"></div></div><div class="priority"><span>Priority</span><strong id="case-score"></strong></div></div>
+          <div class="tabs" role="tablist" aria-label="Case views">
+            <button role="tab" id="tab-network" aria-selected="true" aria-controls="view-network" data-tab="network">Connections</button>
+            <button role="tab" id="tab-transfers" aria-selected="false" aria-controls="view-transfers" data-tab="transfers">Transfers</button>
+            <button role="tab" id="tab-model" aria-selected="false" aria-controls="view-model" data-tab="model">Model notes</button>
+            <button role="tab" id="tab-review" aria-selected="false" aria-controls="view-review" data-tab="review">Review</button>
+          </div>
+          <div id="view-network" class="tab-view" role="tabpanel" aria-labelledby="tab-network">
+            <div class="graph-top"><h3>Observed connections</h3><div class="legend"><span class="account-key"></span>Account <span class="device-key"></span>Shared device</div></div>
+            <svg id="network" viewBox="0 0 650 310" role="img" aria-label="Observed account transfers and shared-device links"></svg>
+            <div id="graph-caption" class="graph-caption"></div>
+            <div class="evidence-counts" id="evidence-counts"></div>
+            <div class="evidence-section"><h3>Why this case appeared</h3><div id="reasons" class="reason-list"></div><p class="muted">These patterns can also occur in legitimate activity. A connection alone does not establish collusion.</p></div>
+            <div class="evidence-section"><h3>Transfer activity in this evidence window</h3><svg id="timeline" viewBox="0 0 650 85" role="img" aria-label="Historical transfer counts by simulation step"></svg><div id="window-note" class="muted"></div></div>
+          </div>
+          <div id="view-transfers" class="tab-view" role="tabpanel" aria-labelledby="tab-transfers" hidden><h3>Historical transfer evidence</h3><p class="muted">Amounts are simulation units. Event and availability steps both precede the snapshot.</p><div class="table-wrap"><table><thead><tr><th>Step</th><th>From</th><th>To</th><th>Amount</th><th>Available</th></tr></thead><tbody id="transfer-rows"></tbody></table></div><p id="transfer-count" class="muted"></p><h3>Account identifiers</h3><div id="account-identifiers" class="identifiers"></div><h3>Shared-device observations</h3><div id="device-evidence" class="identifiers"></div></div>
+          <div id="view-model" class="tab-view" role="tabpanel" aria-labelledby="tab-model" hidden><h3>Score provenance</h3><dl id="model-facts"></dl><h3>Local feature contributions</h3><p id="contribution-note" class="muted"></p><div id="contributions"></div><h3>Observed case features</h3><dl id="features"></dl></div>
+          <div id="view-review" class="tab-view" role="tabpanel" aria-labelledby="tab-review" hidden><h3>Record your review</h3><p class="muted">Your decision is stored separately from benchmark truth. It does not retrain the model.</p><form id="review-form"><label>Case status<select id="review-status"><option value="new">New</option><option value="in_review">In review</option><option value="escalated">Escalated for review</option><option value="closed">Closed after review</option></select></label><label>Review note<textarea id="review-note" rows="4" maxlength="2000" required placeholder="What did you observe? What needs checking?"></textarea></label><button class="primary" id="save-review" type="submit">Save review</button><span id="review-message" role="status"></span></form><h3>Review history</h3><div id="review-history"></div></div>
+          <div class="case-footer" id="case-footer"></div>
+        </div>
+      </section>
+    </div>
+    <details class="health-panel"><summary>Local system health</summary><p class="muted">Request counts reset when the app restarts. Case and replay counts are saved. These are operational checks, not fraud accuracy or drift measurements.</p><button id="refresh-health" class="primary" type="button">Refresh system health</button><p id="health-status" role="status">Refresh to inspect local activity.</p><dl id="health-facts"></dl><ul id="health-issues"></ul></details>
+    <footer class="page-footer"><span>Built for investigation, not automated accusations.</span><span id="version"></span></footer>
+  </div>
+</main>
+</body></html>

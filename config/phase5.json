@@ -1,0 +1,10 @@
+{
+  "version": "learned-rings-v1",
+  "seed": 20261015,
+  "threads": 2,
+  "threshold_quantiles": 25,
+  "device_projection_limit": 64,
+  "lightgbm": {"n_estimators": 150, "learning_rate": 0.04, "num_leaves": 7, "min_child_samples": 15, "reg_lambda": 1.0},
+  "node2vec": {"dimensions": 16, "walks_per_node": 2, "walk_length": 12, "context_size": 2, "p": 1.0, "q": 2.0, "negative_samples": 3, "epochs": 2, "batch_size": 4096, "learning_rate": 0.03},
+  "neural": {"hidden_dimensions": 32, "epochs": 30, "learning_rate": 0.003, "weight_decay": 0.001}
+}
